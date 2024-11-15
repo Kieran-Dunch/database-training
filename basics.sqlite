@@ -1,0 +1,2 @@
+-- Select all columns from the celebs table.
+SELECT * FROM celebs;
