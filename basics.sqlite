@@ -1,2 +1,4 @@
 -- Select all columns from the celebs table.
 SELECT * FROM celebs;
+
+-- SELECT is an example of a clause
