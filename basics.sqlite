@@ -48,3 +48,18 @@ Constraints are rules enforced on data columns on a table. These are used to
 prevent invalid data from being entered into the database.
 
 The following are the constraints that can be added to a table:
+PRIMARY KEY: Uniquely identifies each row/record in a database table.
+NOT NULL: Ensures a column cannot have a NULL value.
+UNIQUE: Ensures all values in a column are different.
+DEFAULT: Sets a default value for a column when no value is specified.
+
+Example:
+CREATE TABLE celebs (
+    id INTEGER PRIMARY KEY,
+    name TEXT UNIQUE,
+    date_of_birth TEXT NOT NULL,
+    date_of_death TEXT DEFAULT 'Not Applicable'
+  );
+
+The table that is being created will now reject any entry that does not follow
+the constraints.
