@@ -1,0 +1,11 @@
+selects all the movies from the movies table
+SELECT * FROM movies;
+
+Select multiple columns from the movies table
+
+SELECT name, genre FROM movies;
+
+line breaks don't matter in SQL, but they can make your queries easier to read
+
+SELECT name, genre, year
+FROM movies;
