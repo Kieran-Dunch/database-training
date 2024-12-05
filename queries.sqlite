@@ -49,6 +49,11 @@ SELECT *
 FROM movies
 WHERE year BETWEEN 2000 AND 2010;
 
+-- with alphabetical values
+SELECT *
+FROM movies
+WHERE name BETWEEN 'A' AND 'J';
+
 -- can also use NOT BETWEEN
 SELECT *
 FROM movies
@@ -74,3 +79,13 @@ WHERE name LIKE '%man%';
 SELECT *
 FROM movies
 WHERE name LIKE 'The %';
+
+-- is null can be used to find null values
+SELECT *
+FROM movies
+WHERE genre IS NULL;
+
+-- can also use IS NOT NULL
+SELECT *
+FROM movies
+WHERE genre IS NOT NULL;
