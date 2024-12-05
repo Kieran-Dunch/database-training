@@ -1,11 +1,76 @@
-selects all the movies from the movies table
+-- selects all the movies from the movies table
 SELECT * FROM movies;
 
-Select multiple columns from the movies table
+-- Select multiple columns from the movies table
 
 SELECT name, genre FROM movies;
 
-line breaks don't matter in SQL, but they can make your queries easier to read
+-- line breaks don't matter in SQL, but they can make your queries easier to read
 
 SELECT name, genre, year
 FROM movies;
+
+-- Using the AS keyword with select to rename columns
+
+SELECT name AS 'Movie Name', genre AS 'Movie Genre', year AS 'Release Year'
+FROM movies;
+
+-- distinct keyword to remove duplicates from the result set
+SELECT DISTINCT genre
+FROM movies;
+
+-- where clause to filter the result set
+SELECT *
+FROM movies
+WHERE genre = 'comedy';
+
+-- can be used to add a comparison too
+SELECT *
+FROM movies
+WHERE genre = 'comedy' AND year > 2000;
+
+-- can also use OR
+SELECT *
+FROM movies
+WHERE genre = 'comedy' OR year > 2000;
+
+-- can also use IN
+SELECT *
+FROM movies
+WHERE genre IN ('comedy', 'action');
+
+-- can also use NOT IN
+SELECT *
+FROM movies
+WHERE genre NOT IN ('comedy', 'action');
+
+-- can also use BETWEEN
+SELECT *
+FROM movies
+WHERE year BETWEEN 2000 AND 2010;
+
+-- can also use NOT BETWEEN
+SELECT *
+FROM movies
+WHERE year NOT BETWEEN 2000 AND 2010;
+
+-- can also use LIKE
+SELECT *
+FROM movies
+WHERE name LIKE 'A%';
+
+-- like can also be used with wildcards
+SELECT *
+FROM movies
+WHERE name LIKE 'Se_en'; -- finds Seven and Se7en
+
+-- like unlocks a lot of possibilities using SQL's syntax
+-- % is a wildcard that matches zero or more characters
+-- you can use it before or after a specific string or character
+SELECT *
+FROM movies
+WHERE name LIKE '%man%';
+
+SELECT *
+FROM movies
+WHERE name LIKE 'The %';
