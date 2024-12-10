@@ -89,3 +89,65 @@ WHERE genre IS NULL;
 SELECT *
 FROM movies
 WHERE genre IS NOT NULL;
+
+
+-- AND and OR can be combined in a single query
+-- These will combine multiple conditions in a single query
+SELECT *
+FROM movies
+WHERE year BETWEEN 1970 AND 1979
+  AND imdb_rating > 8;
+
+SELECT *
+FROM movies
+WHERE year BETWEEN 1970 AND 1979
+  OR imdb_rating > 8;
+
+SELECT *
+FROM movies
+WHERE genre = 'romance'
+  OR genre = 'comedy';
+
+-- ORDER BY can be used to sort the result set
+SELECT *
+FROM movies
+ORDER BY year;
+
+-- can also use DESC to sort in descending order
+SELECT *
+FROM movies
+ORDER BY year DESC;
+
+-- ORDER BY always goes after WHERE, if WHERE is used
+SELECT name, year, imdb_rating
+FROM movies
+ORDER BY imdb_rating DESC;
+
+-- LIMIT can be used to limit the number of rows returned
+SELECT *
+FROM movies
+ORDER BY year DESC
+LIMIT 5;
+
+-- not every SQL database supports LIMIT, but most do
+SELECT *
+FROM movies
+ORDER BY imdb_rating DESC
+LIMIT 3;
+
+-- CASE can be used to create a new column based on a condition
+SELECT name,
+CASE
+  WHEN genre = 'romance' THEN 'Chill'
+  WHEN genre = 'comedy' THEN 'Chill'
+  ELSE 'Intense'
+  END AS 'Mood'
+FROM movies;
+
+-- can also use CASE with comparison operators
+SELECT name,
+CASE
+  WHEN imdb_rating > 7 THEN 'Good'
+  ELSE 'Bad'
+  END AS 'Review'
+FROM movies;
