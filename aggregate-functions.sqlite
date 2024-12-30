@@ -1,0 +1,23 @@
+-- SQL Queries don’t just access raw data, they can also perform calculations
+-- on the raw data to answer specific data questions.
+
+-- Calculations performed on multiple rows of a table are called aggregates.
+
+
+
+-- COUNT() counts the number of rows in the column
+-- SUM() adds up all the values in the column
+-- AVG() calculates the average of values in the column
+-- MAX()/MIN() gets the maximum/minimum value of the column
+-- ROUND() rounds the values in the column
+
+-- COUNT()
+-- COUNT() is a function that takes the name of a column as an argument
+-- and counts the number of non-NULL values in that column.
+
+SELECT COUNT(*)
+FROM table_name;
+
+SELECT COUNT(*)
+FROM fake_apps
+WHERE price == 0;
