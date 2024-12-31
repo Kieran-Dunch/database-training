@@ -28,3 +28,19 @@ WHERE price == 0;
 
 SELECT SUM(column_name)
 FROM table_name;
+
+
+SELECT SUM(downloads)
+FROM fake_apps;
+
+-- MAX() and MIN()
+-- MAX() and MIN() are functions that return the highest and lowest values in a
+-- column, respectively.
+
+SELECT MAX(downloads)
+FROM fake_apps;
+
+SELECT MIN(downloads)
+FROM fake_apps;
+
+-- AVG()
