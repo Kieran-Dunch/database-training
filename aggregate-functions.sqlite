@@ -21,3 +21,10 @@ FROM table_name;
 SELECT COUNT(*)
 FROM fake_apps
 WHERE price == 0;
+
+-- SUM()
+-- SUM() is a function that takes the name of a column as an argument
+-- and returns the sum of all the values in that column.
+
+SELECT SUM(column_name)
+FROM table_name;
