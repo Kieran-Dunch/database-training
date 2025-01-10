@@ -52,3 +52,15 @@ FROM fake_apps;
 
 SELECT AVG(price)
 FROM fake_apps;
+
+-- ROUND()
+-- ROUND() is a function that takes a column name and an integer as arguments.
+-- It rounds the values in the column to the number of decimal places specified
+-- by the integer.
+
+SELECT ROUND(price, 0)
+FROM fake_apps;
+
+-- Combining Aggregate Functions
+SELECT ROUND(AVG(price), 2)
+FROM fake_apps;
