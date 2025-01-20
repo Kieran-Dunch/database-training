@@ -64,3 +64,28 @@ FROM fake_apps;
 -- Combining Aggregate Functions
 SELECT ROUND(AVG(price), 2)
 FROM fake_apps;
+
+-- GROUP_BY
+-- GROUP BY is a clause in SQL that is used with aggregate functions.
+-- It is used in collaboration with the SELECT statement to arrange identical
+-- data into groups.
+
+SELECT price, COUNT(*)
+FROM fake_apps
+GROUP BY price;
+
+SELECT price, COUNT(*)
+FROM fake_apps
+GROUP BY price
+ORDER BY price;
+
+SELECT price, COUNT(*)
+FROM fake_apps
+WHERE downloads > 20000
+GROUP BY price;
+
+SELECT category, SUM(downloads)
+FROM fake_apps
+GROUP BY category;
+
+-- GROUP_BY with calculations
