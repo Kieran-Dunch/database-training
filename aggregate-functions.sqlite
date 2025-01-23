@@ -89,3 +89,31 @@ FROM fake_apps
 GROUP BY category;
 
 -- GROUP_BY with calculations
+
+-- we can use GROUP BY with number values substituting the column name
+
+SELECT ROUND(imdb_rating),
+   COUNT(name)
+FROM movies
+GROUP BY ROUND(imdb_rating)
+ORDER BY ROUND(imdb_rating);
+
+-- Can turn into
+
+SELECT ROUND(imdb_rating),
+   COUNT(name)
+FROM movies
+GROUP BY 1
+ORDER BY 1;
+
+
+-- HAVING
+-- HAVING statement is used in combination with the GROUP BY clause to restrict
+-- the groups of returned rows to only those whose the condition is TRUE.
+
+SELECT price,
+  ROUND(AVG(downloads)),
+  COUNT(*)
+FROM fake_apps
+GROUP BY price
+HAVING COUNT(name) > 10;
