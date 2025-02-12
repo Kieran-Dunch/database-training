@@ -1,0 +1,19 @@
+-- In order to efficiently store data, we often spread related information across multiple tables.
+
+-- here are three separate tables:
+SELECT *
+FROM orders
+LIMIT 5;
+
+SELECT *
+FROM subscriptions
+LIMIT 5;
+
+SELECT *
+FROM customers
+LIMIT 5;
+
+-- The orders table has information about each order a customer has made.
+-- The subscriptions table has information about which subscriptions a customer has.
+-- The customers table has information about the customer.
+-- if they were all combined into one table, there would be a lot of redundant information.
