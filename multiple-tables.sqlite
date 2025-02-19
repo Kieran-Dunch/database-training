@@ -14,6 +14,46 @@ FROM customers
 LIMIT 5;
 
 -- The orders table has information about each order a customer has made.
--- The subscriptions table has information about which subscriptions a customer has.
+-- The subscriptions table has information about which subscriptions a customer
+-- has.
 -- The customers table has information about the customer.
--- if they were all combined into one table, there would be a lot of redundant information.
+-- if they were all combined into one table, there would be a lot of redundant
+-- information.
+
+-- IF we have two tables, orders and subscriptions, and we want to know the
+-- names of all the customers who have ordered a subscription, we can use a JOIN
+-- clause to combine the two tables.
+
+-- The query below does the following:
+-- 1. It selects all the columns from the orders table.
+-- 2. It selects the name column from the customers table.
+-- 3. It uses the JOIN clause to combine the orders table and the customers
+-- table on the customer_id column.
+
+SELECT orders.*,
+       customers.name
+FROM orders
+JOIN customers
+ON orders.customer_id = customers.customer_id
+LIMIT 5;
+
+-- What if we have two tables that don't perfectly match up?
+
+SELECT COUNT(*)
+FROM newspaper;
+-- = 60
+
+SELECT COUNT(*)
+FROM online;
+-- = 65
+
+SELECT COUNT(*)
+FROM newspaper
+JOIN online
+ON newspaper.id = online.id;
+-- = 50
+
+-- The query above only returns the rows where there is a match between the
+-- newspaper and online tables. If there are rows in newspaper that don't have a
+-- corresponding row in online, or vice versa, they won't be included in the
+-- result.
