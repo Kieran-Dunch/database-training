@@ -57,3 +57,62 @@ ON newspaper.id = online.id;
 -- newspaper and online tables. If there are rows in newspaper that don't have a
 -- corresponding row in online, or vice versa, they won't be included in the
 -- result.
+
+-- If we want to include all rows in newspaper, whether there is a corresponding
+-- row in online or not, we can use a LEFT JOIN.
+
+SELECT COUNT(*)
+FROM newspaper
+LEFT JOIN online
+ON newspaper.id = online.id;
+
+-- This will include all rows from the newspaper table, and only the rows from
+-- the online table that match with the newspaper table.
+
+SELECT *
+FROM newspaper
+LEFT JOIN online
+ON newspaper.id = online.id
+WHERE online.id IS NULL;
+
+-- This query will return all the rows in the newspaper table that don't have a
+-- corresponding row in the online table, or an online subscription.
+
+-- foreign key
+-- A foreign key is a column that contains the primary key to another table.
+-- This is used to link two tables together.
+
+-- primary key
+-- A primary key is a column that serves a unique identifier for the rows in the
+-- table.
+
+SELECT *
+FROM classes
+JOIN students
+  ON classes.id = students.class_id;
+
+
+-- CROSS JOIN is used to combine all rows from one table with all rows from
+-- another table.
+
+-- let's find out how many subscriptions were active in each month.
+
+select COUNT(*)
+FROM newspaper
+WHERE start_month <= 3 AND end_month >= 3;
+
+select *
+FROM newspaper
+CROSS JOIN months;
+
+select *
+FROM newspaper
+CROSS JOIN months
+WHERE start_month <= month AND end_month >= month;
+
+SELECT month,
+  COUNT(*)
+FROM newspaper
+CROSS JOIN months
+WHERE start_month <= month AND end_month >= month
+GROUP BY month;
