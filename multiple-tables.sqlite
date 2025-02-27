@@ -116,3 +116,46 @@ FROM newspaper
 CROSS JOIN months
 WHERE start_month <= month AND end_month >= month
 GROUP BY month;
+
+-- UNION
+-- UNION is used to combine the result-set of two or more SELECT statements.
+-- Restrictions: The number of columns must be the same in all SELECT statements.
+-- The columns must also have similar data types in  the same order
+
+SELECT *
+FROM newspaper
+UNION
+SELECT *
+FROM online;
+
+-- WITH clause
+-- The WITH clause stores the result of a query in a temporary table using an
+-- alias.
+-- The temporary table exists only within the execution of the query.
+
+WITH previous_query AS (
+  SELECT *
+  FROM newspaper
+  UNION
+  SELECT *
+  FROM online
+)
+SELECT *
+FROM previous_query;
+
+-- The WITH clause is useful when you have a complex query that you will use
+-- more than once.
+
+-- Find the customer name number of subscriptions they have
+
+WITH previous_query AS (
+  SELECT customer_id,
+   COUNT(subscription_id) AS 'subscriptions'
+FROM orders
+GROUP BY customer_id
+)
+SELECT customers.customer_name,
+previous_query.subscriptions
+FROM previous_query
+JOIN customers
+	ON customers.customer_id = previous_query.customer_id;
