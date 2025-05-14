@@ -1,0 +1,4 @@
+-- A primary key is a designation that applies to a column or multiple columns
+-- of a table that uniquely identifies each row in the table. For example, a
+-- Social Security Number for an employee may serve as a primary key in an
+-- employee table with rows of employee data.
