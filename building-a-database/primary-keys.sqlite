@@ -2,3 +2,35 @@
 -- of a table that uniquely identifies each row in the table. For example, a
 -- Social Security Number for an employee may serve as a primary key in an
 -- employee table with rows of employee data.
+
+-- It is written as follows:
+CREATE TABLE recipe (
+  id integer PRIMARY KEY,
+  name varchar(20),
+  ...
+);
+
+-- You can make anything a primary key technically, but they must be unique. Here are osme options:
+CREATE TABLE book (
+  title varchar(100),
+  isbn varchar(50) PRIMARY KEY,
+  pages integer,
+  price money,
+  description varchar(256),
+  publisher varchar(100)
+);
+
+CREATE TABLE chapter (
+  id integer PRIMARY KEY,
+  number integer,
+  title varchar(50),
+  content varchar(1024)
+);
+
+CREATE TABLE author (
+  name varchar(50),
+  bio varchar(100),
+  email varchar(20) PRIMARY KEY
+);
+
+-- Key Validation
