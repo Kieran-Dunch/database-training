@@ -34,3 +34,23 @@ CREATE TABLE author (
 );
 
 -- Key Validation
+-- As part of an international SQL standard, the information schema is a
+-- database containing meta information about objects in the database including
+-- tables, columns and constraints. This schema provides users with read-only
+-- views of many topics of interest.
+
+-- You can use this to check if a column is a primary key:
+SELECT
+  table_name,
+  column_name,
+  constraint_name
+FROM
+  information_schema.key_column_usage
+WHERE
+  table_name = 'recipe'
+  AND column_name = 'id';
+
+--  It will return something like:
+-- table_name | column_name | constraint_name
+-- -----------+-------------+----------------
+-- recipe     | id          | recipe_pkey
