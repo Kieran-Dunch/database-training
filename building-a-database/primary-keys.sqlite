@@ -54,3 +54,123 @@ WHERE
 -- table_name | column_name | constraint_name
 -- -----------+-------------+----------------
 -- recipe     | id          | recipe_pkey
+
+-- Composite Primary Keys
+-- A composite primary key is a primary key that consists of two or more columns.
+-- This is useful when you want to ensure that a combination of values in
+-- multiple columns is unique. For example, if you have a table of orders and
+-- each order can have multiple items, you can use a composite primary key to
+-- ensure that each order item is unique by combining the order ID and the item
+-- ID.
+CREATE TABLE order_items (
+  order_id integer,
+  item_id integer,
+  quantity integer,
+  PRIMARY KEY (order_id, item_id)
+);
+-- In this example, the combination of order_id and item_id is the primary key,
+-- ensuring that each order item is unique.
+
+CREATE TABLE popular_books (
+  book_title varchar(100),
+  author_name varchar(50),
+  number_sold integer,
+  number_previewed integer,
+  PRIMARY KEY (book_title, author_name)
+)
+
+SELECT
+  constraint_name, table_name, column_name
+FROM
+  information_schema.key_column_usage
+WHERE
+  table_name = 'popular_books';
+
+-- It will return something like:
+-- constraint_name | table_name     | column_name
+-- ----------------+----------------+--------------
+-- pk_popular_books | popular_books  | book_title
+
+-- In this example, the combination of book_title and author_name is the primary
+-- key, ensuring that each book by a specific author is unique in the table.
+
+-- Foreign Keys
+-- A foreign key is a column or set of columns in one table that refers to the
+-- primary key in another table. It establishes a relationship between the two
+-- tables and enforces referential integrity.
+
+-- To designate a foreign key on a single column in PostgreSQL,
+-- we use the REFERENCES keyword:
+CREATE TABLE orders (
+  order_id integer PRIMARY KEY,
+  customer_id integer REFERENCES customers(customer_id),
+  order_date date
+);
+-- In this example, the customer_id column in the orders table is a foreign key
+-- that references the customer_id column in the customers table. This means
+-- that each order must be associated with a valid customer in the customers
+-- table. If you try to insert an order with a customer_id that does not exist
+-- in the customers table, PostgreSQL will raise an error.
+
+CREATE TABLE book (
+  title varchar(100),
+  isbn varchar(50) PRIMARY KEY,
+  pages integer,
+  price money,
+  description varchar(256),
+  publisher varchar(100)
+);
+
+CREATE TABLE chapter (
+  id integer PRIMARY KEY,
+  number integer,
+  title varchar(50),
+  content varchar(1024),
+  book_isbn varchar(50) REFERENCES book(isbn)
+);
+
+SELECT
+  constraint_name, table_name, column_name
+FROM
+  information_schema.key_column_usage
+WHERE
+  table_name = 'chapter';
+
+-- It will return something like:
+-- constraint_name | table_name | column_name
+-- ----------------+------------+-------------
+-- fk_chapter_book | chapter    | book_isbn
+-- In this example, the book_isbn column in the chapter table is a foreign key
+-- that references the isbn column in the book table. This means that each
+-- chapter must be associated with a valid book in the book table. If you try
+-- to insert a chapter with a book_isbn that does not exist in the book table,
+-- PostgreSQL will raise an error.
+
+-- Joingin tables with Foreign Keys
+-- You can use foreign keys to join tables together in a query. For example,
+-- if you have an orders table and a customers table, you can join them
+-- together using the foreign key relationship to get a list of orders with
+-- customer information:
+SELECT
+  o.order_id,
+  o.order_date,
+  c.customer_id,
+  c.customer_name
+FROM
+  orders o
+JOIN
+  customers c ON o.customer_id = c.customer_id;
+-- In this example, we are joining the orders table (aliased as o) with the
+-- customers table (aliased as c) using the foreign key relationship between
+-- the customer_id columns. This will return a list of orders along with the
+-- corresponding customer information.
+
+-- or
+SELECT person.name AS name, email.email AS email
+FROM person, email
+WHERE person.id = email.person_id;
+
+-- In this example, we are joining the person table with the email table using
+-- the foreign key relationship between the person_id column in the email table
+-- and the id column in the person table. This will return a list of names
+-- along with the corresponding email addresses.
