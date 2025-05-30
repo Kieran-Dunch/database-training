@@ -174,3 +174,7 @@ WHERE person.id = email.person_id;
 -- the foreign key relationship between the person_id column in the email table
 -- and the id column in the person table. This will return a list of names
 -- along with the corresponding email addresses.
+
+SELECT book.title AS book, chapter.title AS chapters
+FROM book, chapter
+WHERE book.isbn = chapter.book_isbn;
