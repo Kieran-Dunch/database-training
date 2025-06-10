@@ -88,10 +88,34 @@ CREATE TABLE books (
 -- the author_id column in the authors table. This establishes a one-to-many
 -- relationship between the authors and books tables, allowing each author to
 -- have multiple books, while each book is associated with a single author.
+
 INSERT INTO authors (author_id, name) VALUES (1, 'John Doe');
 INSERT INTO books (book_id, title, author_id) VALUES (1, 'PostgreSQL Basics', 1);
 INSERT INTO books (book_id, title, author_id) VALUES (2, 'Advanced PostgreSQL', 1);
 INSERT INTO books (book_id, title, author_id) VALUES (3, 'PostgreSQL Performance Tuning', 1);
 -- This example shows how to create a one-to-many relationship between authors and books.
 -- Each author can have multiple books, while each book is associated with a single author.
+
 -- many to many relationship
+-- a student can enroll in multiple courses, and a course can have multiple students.
+CREATE TABLE students (
+  student_id integer PRIMARY KEY,
+  name varchar(100) NOT NULL
+);
+CREATE TABLE courses (
+  course_id integer PRIMARY KEY,
+  title varchar(100) NOT NULL
+);
+CREATE TABLE enrollments (
+  student_id integer,
+  course_id integer,
+  PRIMARY KEY (student_id, course_id),
+  FOREIGN KEY (student_id) REFERENCES students(student_id),
+  FOREIGN KEY (course_id) REFERENCES courses(course_id)
+);
+-- In this example, the enrollments table serves as a junction table that connects
+-- the students and courses tables. The student_id and course_id columns in the
+-- enrollments table form a composite primary key, ensuring that each student can
+-- enroll in multiple courses, and each course can have multiple students. The
+-- foreign keys in the enrollments table reference the primary keys of the students
+-- and courses tables, establishing the many-to-many relationship.
