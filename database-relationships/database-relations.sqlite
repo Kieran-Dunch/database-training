@@ -119,3 +119,27 @@ CREATE TABLE enrollments (
 -- enroll in multiple courses, and each course can have multiple students. The
 -- foreign keys in the enrollments table reference the primary keys of the students
 -- and courses tables, establishing the many-to-many relationship.
+
+-- a note on composite keys
+CREATE TABLE composite_example (
+  part_id integer,
+  component_id integer,
+  PRIMARY KEY (part_id, component_id),
+  FOREIGN KEY (part_id) REFERENCES parts(part_id),
+  FOREIGN KEY (component_id) REFERENCES components(component_id)
+);
+-- In this example, the composite_example table has a composite primary key
+-- consisting of part_id and component_id. This means that each combination of
+-- part_id and component_id must be unique within the table. The foreign keys
+-- reference the primary keys of the parts and components tables, establishing
+-- relationships with those tables. The composite primary key ensures that each
+-- part can have multiple components, and each component can be associated with
+-- multiple parts, while still maintaining the uniqueness of each combination
+-- of part_id and component_id.
+
+-- This is useful in scenarios where you need to track relationships between
+-- two entities that can have multiple associations, such as parts and components
+-- in a manufacturing context, where each part can consist of multiple components,
+-- and each component can be used in multiple parts. The composite primary key
+-- ensures that the combination of part_id and component_id is unique, preventing
+-- duplicate entries for the same part-component relationship.
