@@ -1,0 +1,52 @@
+-- A new restaurant, Bytes of China, has just moved to a busy street in Chinatown
+-- from a previous location. Bytes of China has hired you to design its database
+-- schema so that it can display its menu on its new website, It has provided you
+-- with a copy of its current menu.
+
+-- We are writing a script to create a SQLite database for Bytes of China.
+
+-- first, the restaurant and address tables
+CREATE TABLE restaurant (
+  id integer PRIMARY KEY,
+  -- restaurant belongs to address
+  name varchar(20),
+  description varchar(100),
+  rating decimal,
+  telephone char(10),
+  hours varchar(100)
+);
+
+CREATE TABLE address (
+  id integer PRIMARY KEY,
+  street_number varchar(10),
+  street_name varchar(20),
+  city varchar(20),
+  state varchar(15),
+  google_map_link varchar(50),
+  postal_code integer
+);
+
+-- now write a query to verify that the primary keys exist
+SELECT
+  constraint_name, table_name, column_name
+FROM
+  information_schema.key_column_usage
+WHERE
+  table_name = 'restaurant' OR table_name = 'address';
+
+-- now on to the menu and item tables
+-- the menu contains certain categories of items
+-- each category has a unique letter code, which is the primary key
+CREATE TABLE category (
+  id char(2) PRIMARY KEY,
+  name varchar(20),
+  description varchar(200)
+);
+
+-- validate the proper creation of the primary key
+SELECT
+  constraint_name, table_name, column_name
+FROM
+  information_schema.key_column_usage
+WHERE
+  table_name = 'category';
