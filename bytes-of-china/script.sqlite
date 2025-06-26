@@ -80,3 +80,8 @@ FROM
   information_schema.key_column_usage
 WHERE
   table_name = 'rating';
+
+-- now on to the relationships
+-- restaurant has one address and address has one restaurant
+ALTER TABLE address
+ADD COLUMN restaurant_id integer REFERENCES restaurant(id) UNIQUE;
