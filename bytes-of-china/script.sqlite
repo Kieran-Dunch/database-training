@@ -288,3 +288,17 @@ INSERT INTO categories_dishes VALUES (
   8,
   17.95
 );
+
+-- Type in a query that displays the restaurant name, its address (street number
+-- and name) and telephone number
+
+SELECT name, address.street_number, address.street_name, telephone
+FROM restaurant
+JOIN address
+ON restaurant.id = address.id;
+
+-- write a query to get the best rating the restaurant ever received
+
+SELECT MAX(rating) AS best_rating FROM review;
+
+-- Write a query to display a dish name, its price and category sorted by the dish name.
