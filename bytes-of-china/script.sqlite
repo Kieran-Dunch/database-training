@@ -302,3 +302,18 @@ ON restaurant.id = address.id;
 SELECT MAX(rating) AS best_rating FROM review;
 
 -- Write a query to display a dish name, its price and category sorted by the dish name.
+
+SELECT name, categories_dishes.price, category.name
+FROM dish
+JOIN categories_dishes ON dish.id = categories_dishes.dish_id
+JOIN category ON categories_dishes.category_id = category.id
+ORDER BY dish.name;
+
+-- the above query fails, because we are joining two tables a 'name' column
+-- from both dish and category tables. We need to specify which table's name we want.
+
+SELECT dish.name, categories_dishes.price, category.name
+FROM dish
+JOIN categories_dishes ON dish.id = categories_dishes.dish_id
+JOIN category ON categories_dishes.category_id = category.id
+ORDER BY dish.name;
