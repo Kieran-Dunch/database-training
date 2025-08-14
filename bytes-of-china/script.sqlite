@@ -334,3 +334,29 @@ FROM dish
 JOIN categories_dishes ON dish.id = categories_dishes.dish_id
 JOIN category ON categories_dishes.category_id = category.id
 WHERE dish.hot_and_spicy = true;
+
+-- Write a query that displays the dish_id and COUNT(dish_id) as dish_count
+-- from the categories_dishes table
+
+SELECT dish_id, COUNT(dish_id) AS dish_count
+FROM categories_dishes
+GROUP BY dish_id
+HAVING COUNT(dish_id) > 1;
+
+-- now write the query that includes the dish name and category name
+
+SELECT COUNT(dish_id) AS dish_count, dish.name AS dish_name
+FROM categories_dishes
+JOIN dish ON categories_dishes.dish_id = dish.id
+GROUP BY dish_id, dish.name;
+
+-- Write a query that displays the best rating and description of the review
+
+SELECT rating AS best_rating, description
+FROM review
+WHERE rating = ( SELECT MAX(rating) FROM review );
+
+-- * the above query has to include a subquery to find the maximum rating
+-- The subquery is necessary because we need to find the maximum rating first,
+-- and then use that value to filter the reviews. Without the subquery, we would not
+-- be able to directly compare the rating in the WHERE clause.
