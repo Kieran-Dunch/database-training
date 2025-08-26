@@ -1,0 +1,42 @@
+-- Database Triggers
+-- a database trigger is a procedural code that is automatically executed in
+-- response to certain events on a particular table or view in a database.
+
+-- So when an event occurs, the trigger is activated (or "fired") and the
+-- associated code is executed.
+
+-- Why is this useful?
+-- Triggers can be used to enforce business rules, maintain data integrity,
+-- and automate system tasks.
+
+-- Example: Let's say we have a table called "orders" and we want to keep
+-- track of the total number of orders placed by each customer in a separate
+-- table called "customer_order_count".
+-- We can create a trigger that automatically updates the "customer_order_count"
+-- table whenever a new order is inserted into the "orders" table.
+
+-- Create the "orders" table
+CREATE TABLE orders (
+    order_id INTEGER PRIMARY KEY,
+    customer_id INTEGER,
+    order_date TEXT
+);
+
+-- Create the "customer_order_count" table
+CREATE TABLE customer_order_count (
+    customer_id INTEGER PRIMARY KEY,
+    order_count INTEGER DEFAULT 0
+);
+
+-- Create the trigger
+CREATE TRIGGER update_order_count
+AFTER INSERT ON orders
+BEGIN
+    INSERT INTO customer_order_count (customer_id, order_count)
+    VALUES (NEW.customer_id, 1)
+    ON CONFLICT(customer_id) DO UPDATE SET
+    order_count = order_count + 1;
+END;
+
+-- Now, whenever a new order is inserted into the "orders" table,
+-- the "customer_order_count" table will be automatically updated.
