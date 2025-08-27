@@ -40,3 +40,22 @@ END;
 
 -- Now, whenever a new order is inserted into the "orders" table,
 -- the "customer_order_count" table will be automatically updated.
+
+-- Writing your own trigger
+-- You can create your own triggers using the CREATE TRIGGER statement.
+
+-- you can also use a triggger to execute a previously made function
+
+-- Example of using a trigger to call a function
+
+CREATE TRIGGER insert_trigger
+BEFORE INSERT ON customers
+FOR EACH ROW
+EXECUTE PROCEDURE insert_function();
+
+SELECT * FROM customers;
+
+INSERT INTO customers (first_name, last_name)
+VALUES ('John', 'Doe');
+
+SELECT * FROM customers;
