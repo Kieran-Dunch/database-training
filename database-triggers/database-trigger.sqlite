@@ -59,3 +59,24 @@ INSERT INTO customers (first_name, last_name)
 VALUES ('John', 'Doe');
 
 SELECT * FROM customers;
+
+-- when is a trigger activated?
+-- A trigger can be activated before or after an INSERT, UPDATE, or DELETE
+-- operation.
+
+CREATE TRIGGER after_trigger
+AFTER UPDATE ON customers
+FOR EACH ROW -- this means the trigger will execute once for each row affected
+EXECUTE PROCEDURE log_customers_change();
+
+UPDATE customers
+SET years_old = years_old + 10
+WHERE customer_id = 1;
+
+SELECT * FROM customers
+ORDER BY customer_id;
+
+SELECT * FROM customers_log;
+
+-- this code records changes to the customers table in a log table
+-- we use the trigger to call a function that inserts a record
