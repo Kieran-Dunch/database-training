@@ -80,3 +80,26 @@ SELECT * FROM customers_log;
 
 -- this code records changes to the customers table in a log table
 -- we use the trigger to call a function that inserts a record
+
+-- FOR EACH ROW or FOR EACH STATEMENT
+-- A trigger can be defined to execute either FOR EACH ROW or FOR EACH STATEMENT.
+-- FOR EACH ROW means the trigger will execute once for each row affected by the operation,
+-- while FOR EACH STATEMENT means the trigger will execute once for the entire operation,
+-- regardless of how many rows are affected.
+
+SELECT * FROM customers;
+
+-- Example of FOR EACH STATEMENT trigger
+-- This trigger only runs once per UPDATE statement, not once per row affected
+CREATE TRIGGER each_statement_trigger
+AFTER UPDATE ON customers
+FOR EACH STATEMENT
+EXECUTE PROCEDURE statement_function();
+
+UPDATE customers
+SET years_old = years_old + 1;
+
+SELECT * FROM customers;
+
+-- this is great for making audit triggers that log when a table was modified
+-- without needing to log every single row change
