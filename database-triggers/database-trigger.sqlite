@@ -103,3 +103,62 @@ SELECT * FROM customers;
 
 -- this is great for making audit triggers that log when a table was modified
 -- without needing to log every single row change
+
+-- FOCUS SQL Triggers
+
+-- You can use a WHEN clause to filter when a trigger calls for its function
+
+-- NEW and OLD keywords allow you to access data before and after the execution
+-- of the query
+
+-- this trigger can detect when a customer has spent more than $1000 and call a
+-- function to log that information or take some action
+CREATE TRIGGER insert_trigger_high
+BEFORE INSERT ON clients
+FOR EACH ROW
+WHEN (NEW.total_spent > 1000)
+EXECUTE PROCEDURE high_spender();
+
+-- this trigger can detect when a customer has spent less than $1000 and call a
+-- function to log that information or take some action
+CREATE TRIGGER insert_trigger_low
+BEFORE INSERT ON clients
+FOR EACH ROW
+WHEN (NEW.total_spent < 1000)
+EXECUTE PROCEDURE not_a_high_spender();
+
+-- Example trigger using NEW and OLD keywords
+CREATE TRIGGER update_trigger_high
+BEFORE UPDATE ON clients
+FOR EACH ROW
+WHEN (NEW.total_spent > 1000)
+EXECUTE PROCEDURE set_high_spender();
+
+
+CREATE TRIGGER update_trigger_low
+BEFORE UPDATE ON clients
+FOR EACH ROW
+WHEN (NEW.total_spent < 1000)
+EXECUTE PROCEDURE set_low_spender();
+
+-- The clients existing in the database before the triggers were created will
+-- not have their total_spent values updated automatically
+SELECT *
+FROM clients
+ORDER BY client_id;
+
+-- Now, when we update the total_spent for a client, the appropriate trigger\
+-- will be activated
+UPDATE clients
+SET total_spent = 5000
+WHERE last_name = 'Campbell';
+-- Cambell is now a high spender, so the update_trigger_high will be activated
+
+-- and now for a low spender
+UPDATE clients
+SET total_spent = 100
+WHERE last_name = 'Lewis';
+
+SELECT *
+FROM clients
+ORDER BY client_id;
