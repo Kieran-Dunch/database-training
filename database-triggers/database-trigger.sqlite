@@ -162,3 +162,12 @@ WHERE last_name = 'Lewis';
 SELECT *
 FROM clients
 ORDER BY client_id;
+
+-- Nuances of triggers
+-- multiple triggers can exist on the same table of the same kind
+-- Triggers are then activated in alphabetical order based on their names
+-- No trigger can be set on a select statement, only on insert, update, or
+-- delete statements
+
+-- Now what happens if a trigger causes another trigger to activate? This is
+-- called a cascading trigger.
