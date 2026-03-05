@@ -171,3 +171,47 @@ ORDER BY client_id;
 
 -- Now what happens if a trigger causes another trigger to activate? This is
 -- called a cascading trigger.
+
+-- DROP TRIGGER trigger_name; -- this is how you can drop a trigger if you no
+-- longer need it
+
+-- to view all existing triggers in the database, you can query the
+-- information_schema.triggers table
+
+-- this will print all the triggers
+SELECT *
+FROM information_schema.triggers;
+
+-- example of dropping a trigger
+DROP TRIGGER update_order_count;
+
+
+-- Quick review:
+-- Triggers are associated with a specific table, view or foreign table.
+
+-- Triggers execute a specified function when certain operations are performed
+-- on the table (INSERT, UPDATE, DELETE, TRUNCATE).
+
+-- Triggers can run before, after or instead of the operation attempts to alter
+-- the row.
+
+-- A trigger set FOR EACH ROW is called once for every row modified.
+
+-- FOR EACH STATEMENT executes once for the entire operation (0 modified rows
+-- would still trigger this).
+
+-- Triggers can specify a boolean WHEN condition to see when they should be
+-- fired.
+
+-- Multiple triggers of the same kind can exist on the same table. If so they
+-- are triggered in alphabetical order.
+
+-- SELECT statements do not modify rows so no trigger can be set on a SELECT
+-- statement.
+
+-- One SQL command can trigger more than one kind of trigger.
+
+-- Use the DROP TRIGGER command to remove a trigger.
+
+-- You can query the information_schema.triggers table to get a list of triggers
+-- in the system.
