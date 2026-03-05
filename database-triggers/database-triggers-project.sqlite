@@ -1,0 +1,44 @@
+-- We have a table called 'customers' and 'customers_log'
+-- this is a record of the project tasks for this project
+
+-- examine the 'customers' table
+SELECT *
+FROM customers
+ORDER BY customer_id;
+-- three records
+
+-- examine the 'customers_log' table
+SELECT *
+FROM customers_log;
+-- empty
+
+-- create trigger to execute existing function
+CREATE TRIGGER log_name_change
+AFTER UPDATE ON customers
+FOR EACH ROW
+EXECUTE PROCEDURE log_customers_change();
+-- this should only log a change when first or last name have been modified
+
+-- testing
+UPDATE customers
+SET last_name = 'Dunch'
+WHERE customer_id = 1;
+
+UPDATE customers
+SET first_name = 'Dunch'
+WHERE customer_id = 2;
+-- both create an entry in the log table
+
+-- display results
+SELECT *
+FROM customers
+ORDER BY customer_id;
+
+SELECT *
+FROM customers_log;
+
+-- create a trigger that log change after insert
+CREATE TRIGGER customer_insert
+AFTER INSERT ON customers
+FOR EACH STATEMENT
+EXECUTE PROCEDURE log_customers_change();
