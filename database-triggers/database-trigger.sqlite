@@ -215,3 +215,6 @@ DROP TRIGGER update_order_count;
 
 -- You can query the information_schema.triggers table to get a list of triggers
 -- in the system.
+-- example of querying the triggers table
+SELECT *
+FROM information_schema.triggers;

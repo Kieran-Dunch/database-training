@@ -42,3 +42,56 @@ CREATE TRIGGER customer_insert
 AFTER INSERT ON customers
 FOR EACH STATEMENT
 EXECUTE PROCEDURE log_customers_change();
+
+-- insert three customer records in one statement
+INSERT INTO customers (first_name, last_name, email_address, home_phone, city, state_name, years_old)
+VALUES
+        ('Jeffrey','Cook','Jeffrey.Cook@example.com','202-555-0398','Jersey city','New Jersey',66),
+        ('Kelly','Smith','Kelly.Smith@example.com','202-555-0123','Newark','New Jersey',34),
+        ('Michael','Johnson','Michael.Johnson@example.com','202-555-0456','Trenton','New Jersey',45);
+
+-- display results
+SELECT *
+FROM customers
+ORDER BY customer_id;
+
+SELECT *
+FROM customers_log;
+
+-- new trigger to change customers age
+
+CREATE TRIGGER customers_min_age
+BEFORE UPDATE ON customers
+FOR EACH ROW
+WHEN (NEW.years_old < 13)
+EXECUTE PROCEDURE override_with_min_age();
+
+SELECT *
+FROM customers
+ORDER BY customer_id;
+
+SELECT *
+FROM customers_log;
+
+-- trigger testing
+UPDATE customers
+SET years_old = 10
+WHERE customer_id = 1;
+
+UPDATE customers
+SET years_old = 15
+WHERE customer_id = 2;
+
+SELECT *
+FROM customers
+ORDER BY customer_id;
+
+SELECT *
+FROM customers_log;
+
+-- regret! drop the age limit trigger
+DROP TRIGGER IF EXISTS customers_min_age ON customers;
+
+-- check active triggers
+SELECT *
+FROM information_schema.triggers;
